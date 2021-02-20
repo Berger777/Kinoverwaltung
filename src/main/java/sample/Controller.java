@@ -18,6 +18,7 @@ public class Controller {
             ResultSet rs = stat.executeQuery(sql);
 
             while (rs.next()) {
+                //TODO: GUI + Test Data and Access
                 System.out.println("ArtikelNr: " + rs.getString("ArtikelNr") +
                         ", Bezeichnung: " + rs.getString("Artikelname"));
             }
