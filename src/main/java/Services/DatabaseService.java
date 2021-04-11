@@ -24,7 +24,7 @@ public class DatabaseService {
                 throw new NutzerNotFoundException();
             }
             do {
-                nutzer.setId(rs.getInt("NutzerID"));
+                nutzer.setNutzerId(rs.getInt("NutzerID"));
                 nutzer.setVorname(rs.getString("Vorname"));
                 nutzer.setName(rs.getString("Name"));
                 nutzer.setPasswort(rs.getString("Passwort"));
