@@ -61,7 +61,7 @@
                               <Label layoutX="10.0" layoutY="25.0" prefHeight="17.0" prefWidth="130.0" text="Nachname" GridPane.columnIndex="2" />
                               <TextField fx:id="nachnameTextfield" layoutX="10.0" layoutY="67.0" prefHeight="25.0" prefWidth="134.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <Separator layoutX="278.0" layoutY="123.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="149.0" text="Registrieren" onAction="#registrieren" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <Button mnemonicParsing="false" onAction="#registrieren" prefHeight="27.0" prefWidth="149.0" text="Registrieren" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
                      </children>
