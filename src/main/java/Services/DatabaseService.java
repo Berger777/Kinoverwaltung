@@ -4,8 +4,31 @@ import Entities.Nutzer;
 import Exceptions.NutzerNotFoundException;
 
 import java.sql.*;
+import java.util.UUID;
 
 public class DatabaseService {
+
+    public void speichereNutzerInDB(String vorname, String nachname, String passwort){
+        Nutzer nutzer = new Nutzer();
+        nutzer.setName(nachname);
+        nutzer.setPasswort(passwort);
+        nutzer.setVorname(vorname);
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "INSERT INTO Nutzer (Vorname, Name, Passwort, NutzerID) VALUES(?,?,?,?);";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setString(1,vorname);
+            prepareStatement.setString(2,nachname);
+            prepareStatement.setString(3,passwort);
+            prepareStatement.setString(4, UUID.randomUUID().toString());
+            prepareStatement.execute();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
 
     public Nutzer getNutzerAusDB(String vorname, String nachname) throws NutzerNotFoundException {
             Nutzer nutzer = new Nutzer();
@@ -34,7 +57,7 @@ public class DatabaseService {
             conn.close();
         }
         catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
         return nutzer;
     }
