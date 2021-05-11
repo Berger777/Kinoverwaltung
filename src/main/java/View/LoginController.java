@@ -18,24 +18,23 @@ import java.util.logging.Logger;
 
 public class LoginController {
 
-    public TextField vornameTextfield;
-    public TextField nachnameTextfield;
     public DatabaseService databaseService = new DatabaseService();
     public PasswordField passwortField;
     public Pane loginPane;
+    public TextField benutzernameTextfield;
 
     public void login(ActionEvent event){
         try {
-            Nutzer nutzer = databaseService.getNutzerAusDB(vornameTextfield.getText(),nachnameTextfield.getText());
+            Nutzer nutzer = databaseService.getBenutzerAusDB(benutzernameTextfield.getText());
             if(passwortField.getText().equals(nutzer.getPasswort())){
                 loginPane.setVisible(false);
                 try {
-                    Parent secondStage = FXMLLoader.load(getClass().getResource("/gui.fxml"));
+                    Parent secondStage = FXMLLoader.load(getClass().getResource("/uebersicht.fxml"));
                     Scene scene = new Scene(secondStage, 1000, 777);
                     Stage stage = new Stage();
-                    stage.setTitle("Startseite");
+                    stage.setTitle("Übersicht");
                     stage.setScene(scene);
-                    FXMLLoader.load(getClass().getResource("/gui.fxml"));
+                    FXMLLoader.load(getClass().getResource("/uebersicht.fxml"));
                     ((Node)(event.getSource())).getScene().getWindow().hide();
                     stage.show();
                 } catch (IOException e) {

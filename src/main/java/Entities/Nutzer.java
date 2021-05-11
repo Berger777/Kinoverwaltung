@@ -7,7 +7,15 @@ public class Nutzer {
   private String passwort;
   private String vorname;
   private String name;
+  private String benutzername;
 
+  public String getBenutzername(){
+    return this.benutzername;
+  }
+
+  public void setBenutzername(String benutzername){
+    this.benutzername = benutzername;
+  }
 
   public long getNutzerId() {
     return nutzerId;

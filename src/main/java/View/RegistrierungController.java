@@ -26,32 +26,37 @@ public class RegistrierungController {
     public TextField vornameTextfield;
     public PasswordField passwortField1;
     public DatabaseService databaseService = new DatabaseService();
+    public TextField benutzernameTextfield;
 
     public void registrieren(ActionEvent event) {
-        if (nachnameTextfield.getText().isEmpty() || vornameTextfield.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Vorname oder Nachname leer!", ButtonType.CLOSE);
+        if (nachnameTextfield.getText().isEmpty() || vornameTextfield.getText().isEmpty() || benutzernameTextfield.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Vorname, Nachname oder Benutzername leer!", ButtonType.CLOSE);
             alert.showAndWait();
-        }else if (!passwortField.getText().equals(passwortField1.getText())){
+        }else if (!passwortField.getText().equals(passwortField1.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Passwörter nicht identisch!", ButtonType.CLOSE);
             alert.showAndWait();
-        } else {
+        }else {
             try {
-                databaseService.getNutzerAusDB(vornameTextfield.getText(),nachnameTextfield.getText());
+                databaseService.getBenutzerAusDB(benutzernameTextfield.getText());
             } catch (NutzerNotFoundException e) {
-                databaseService.speichereNutzerInDB(vornameTextfield.getText(),nachnameTextfield.getText(),passwortField.getText());
-                registerPane.setVisible(false);
                 try {
-                    Parent secondStage = FXMLLoader.load(getClass().getResource("/login.fxml"));
-                    Scene scene = new Scene(secondStage, 1000, 777);
-                    Stage stage = new Stage();
-                    stage.setTitle("Login");
-                    stage.setScene(scene);
-                    FXMLLoader.load(getClass().getResource("/login.fxml"));
-                    ((Node) (event.getSource())).getScene().getWindow().hide();
-                    stage.show();
-                } catch (IOException er) {
-                    Logger logger = Logger.getLogger(getClass().getName());
-                    logger.log(Level.SEVERE, "Failed to create new Window.", er);
+                    databaseService.getBenutzerAusDB(benutzernameTextfield.getText());
+                } catch (NutzerNotFoundException ee) {
+                    databaseService.speichereNutzerInDB(vornameTextfield.getText(),nachnameTextfield.getText(),benutzernameTextfield.getText(),passwortField.getText());
+                    registerPane.setVisible(false);
+                    try {
+                        Parent secondStage = FXMLLoader.load(getClass().getResource("/login.fxml"));
+                        Scene scene = new Scene(secondStage, 1000, 777);
+                        Stage stage = new Stage();
+                        stage.setTitle("Login");
+                        stage.setScene(scene);
+                        FXMLLoader.load(getClass().getResource("/login.fxml"));
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                        stage.show();
+                    } catch (IOException er) {
+                        Logger logger = Logger.getLogger(getClass().getName());
+                        logger.log(Level.SEVERE, "Failed to create new Window.", er);
+                    }
                 }
             }
         }
