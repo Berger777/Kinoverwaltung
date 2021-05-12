@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="center" hgap="10" prefHeight="547.0" prefWidth="779.0" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.RegistrierungController">
+<GridPane alignment="center" hgap="10" prefHeight="547.0" prefWidth="779.0" vgap="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.RegistrierungController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>

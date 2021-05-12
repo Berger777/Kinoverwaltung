@@ -1,6 +1,7 @@
 package View;
 
 import Entities.Nutzer;
+import Enums.Scenes;
 import Exceptions.NutzerNotFoundException;
 import Services.DatabaseService;
 import javafx.event.ActionEvent;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoginController {
+public class LoginController extends Controller{
 
     public DatabaseService databaseService = new DatabaseService();
     public PasswordField passwortField;
@@ -24,23 +25,19 @@ public class LoginController {
     public TextField benutzernameTextfield;
 
     public void login(ActionEvent event){
+        if(benutzernameTextfield.getText().equals("admin")){
+            if (passwortField.getText().equals("admin")){
+                changeSceneTo(event, Scenes.ADMIN);
+            }else {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Passwort falsch!", ButtonType.CLOSE);
+                alert.showAndWait();
+            }
+        }else{
         try {
             Nutzer nutzer = databaseService.getBenutzerAusDB(benutzernameTextfield.getText());
             if(passwortField.getText().equals(nutzer.getPasswort())){
                 loginPane.setVisible(false);
-                try {
-                    Parent secondStage = FXMLLoader.load(getClass().getResource("/uebersicht.fxml"));
-                    Scene scene = new Scene(secondStage, 1000, 777);
-                    Stage stage = new Stage();
-                    stage.setTitle("Übersicht");
-                    stage.setScene(scene);
-                    FXMLLoader.load(getClass().getResource("/uebersicht.fxml"));
-                    ((Node)(event.getSource())).getScene().getWindow().hide();
-                    stage.show();
-                } catch (IOException e) {
-                    Logger logger = Logger.getLogger(getClass().getName());
-                    logger.log(Level.SEVERE, "Failed to create new Window.", e);
-                }
+                changeSceneTo(event,Scenes.UEBERSICHT);
             }else{
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Passwort falsch!", ButtonType.CLOSE);
                 alert.showAndWait();
@@ -49,22 +46,11 @@ public class LoginController {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Nutzer nicht gefunden!", ButtonType.CLOSE);
             alert.showAndWait();
         }
+        }
     }
 
     public void registrieren(ActionEvent event) {
         loginPane.setVisible(false);
-        try {
-            Parent secondStage = FXMLLoader.load(getClass().getResource("/registrieren.fxml"));
-            Scene scene = new Scene(secondStage, 1000, 777);
-            Stage stage = new Stage();
-            stage.setTitle("Registrierung");
-            stage.setScene(scene);
-            FXMLLoader.load(getClass().getResource("/registrieren.fxml"));
-            ((Node)(event.getSource())).getScene().getWindow().hide();
-            stage.show();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Failed to create new Window.", e);
-        }
+        changeSceneTo(event,Scenes.REGISTRIEREN);
     }
 }

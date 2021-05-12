@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane alignment="center" hgap="10" prefHeight="547.0" prefWidth="779.0" vgap="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.AdminController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <VBox prefHeight="547.0" prefWidth="840.0">
+         <children>
+            <Pane fx:id="adminPane" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <GridPane prefHeight="547.0" prefWidth="779.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="35.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="708.0" minWidth="10.0" prefWidth="706.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="28.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="482.0" minHeight="10.0" prefHeight="482.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane prefHeight="214.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="2.0" prefWidth="30.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.0" minWidth="10.0" prefWidth="156.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="6.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="319.0" minWidth="10.0" prefWidth="167.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="0.0" prefWidth="32.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="2.0" prefWidth="124.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="10.0" prefWidth="24.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="433.0" minWidth="10.0" prefWidth="137.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="17.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="43.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="96.0" minHeight="0.0" prefHeight="6.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="192.0" minHeight="0.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="222.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="241.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="253.0" minHeight="5.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <TextField fx:id="zeitField" prefHeight="27.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                              <Label prefHeight="17.0" prefWidth="130.0" text="Zeit" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                              <Label layoutX="140.0" layoutY="32.0" prefHeight="17.0" prefWidth="130.0" text="Film-Titel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="filmTitelTextfield" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label layoutX="10.0" layoutY="25.0" prefHeight="17.0" prefWidth="130.0" text="Datum" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <TextField fx:id="datumTextfield" layoutX="10.0" layoutY="67.0" prefHeight="25.0" prefWidth="134.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                              <Button mnemonicParsing="false" onAction="#hinzufuegen" prefHeight="27.0" prefWidth="165.0" text="Vorführung Hinzufügen" GridPane.columnIndex="3" GridPane.rowIndex="14" />
+                              <TextField fx:id="preisField" prefHeight="27.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                              <Label prefHeight="17.0" prefWidth="130.0" text="Preis" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label prefHeight="17.0" prefWidth="130.0" text="Regisseur" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="regisseurField" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label prefHeight="17.0" prefWidth="220.0" text="Film hinzufügen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Vorführung hinzufügen" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="153.0" text="Film Hinzufügen" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                              <Label prefHeight="17.0" prefWidth="130.0" text="Länge" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                              <TextField fx:id="filmLaengeField" prefHeight="27.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                              <Label text="Beschreibung" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                              <TextField prefHeight="73.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                              <Label prefHeight="17.0" prefWidth="130.0" text="Aufschlag (Prozent)" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                              <ChoiceBox prefHeight="27.0" prefWidth="162.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                              <ChoiceBox prefHeight="74.0" prefWidth="162.0" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+                              <Label prefHeight="17.0" prefWidth="48.0" text="Saal" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                              <Label text="Film" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                              <Label text="Film löschen" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                              <Label text="Vorführung löschen" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                              <ChoiceBox prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                              <ChoiceBox prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="124.0" onAction="#filmDelete" text="Film Löschen" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" onAction="#vorfuehrungDelete" text="Vorführung Löschen" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="129.0" onAction="#logout" text="Logout" GridPane.columnIndex="7" GridPane.rowIndex="14" />
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.columnIndex="1">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="35.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="0.0" prefWidth="221.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="221.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="389.0" minWidth="10.0" prefWidth="55.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</GridPane>

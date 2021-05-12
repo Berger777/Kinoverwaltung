@@ -1,6 +1,7 @@
 package View;
 
 import Entities.Nutzer;
+import Enums.Scenes;
 import Exceptions.NutzerNotFoundException;
 import Services.DatabaseService;
 import javafx.event.ActionEvent;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RegistrierungController {
+public class RegistrierungController extends Controller{
     public Pane registerPane;
     public PasswordField passwortField;
     public TextField nachnameTextfield;
@@ -44,19 +45,7 @@ public class RegistrierungController {
                 } catch (NutzerNotFoundException ee) {
                     databaseService.speichereNutzerInDB(vornameTextfield.getText(),nachnameTextfield.getText(),benutzernameTextfield.getText(),passwortField.getText());
                     registerPane.setVisible(false);
-                    try {
-                        Parent secondStage = FXMLLoader.load(getClass().getResource("/login.fxml"));
-                        Scene scene = new Scene(secondStage, 1000, 777);
-                        Stage stage = new Stage();
-                        stage.setTitle("Login");
-                        stage.setScene(scene);
-                        FXMLLoader.load(getClass().getResource("/login.fxml"));
-                        ((Node) (event.getSource())).getScene().getWindow().hide();
-                        stage.show();
-                    } catch (IOException er) {
-                        Logger logger = Logger.getLogger(getClass().getName());
-                        logger.log(Level.SEVERE, "Failed to create new Window.", er);
-                    }
+                    changeSceneTo(event, Scenes.LOGIN);
                 }
             }
         }
