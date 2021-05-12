@@ -1,5 +1,6 @@
 package View;
 
+import Entities.Nutzer;
 import Enums.Scenes;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 
 public abstract class Controller {
 
+    private static Nutzer currentUser = null;
     protected static final String gui = "/gui.fxml";
     protected static final String admin = "/admin.fxml";
     protected static final String login = "/login.fxml";
@@ -33,5 +35,13 @@ public abstract class Controller {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
+    }
+
+    public static Nutzer getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(Nutzer currentUser) {
+        Controller.currentUser = currentUser;
     }
 }

@@ -3,22 +3,21 @@ package Entities;
 
 public class Vorfuehrung {
 
-  private long vorfuehrungId;
+  private String vorfuehrungId;
   private String datum;
   private long zeit;
   private long aufschlag;
-  private long filmId;
-  private long saalId;
+  private Film film;
+  private Saal saal;
 
 
-  public long getVorfuehrungId() {
+  public String getVorfuehrungId() {
     return vorfuehrungId;
   }
 
-  public void setVorfuehrungId(long vorfuehrungId) {
+  public void setVorfuehrungId(String vorfuehrungId) {
     this.vorfuehrungId = vorfuehrungId;
   }
-
 
   public String getDatum() {
     return datum;
@@ -28,7 +27,6 @@ public class Vorfuehrung {
     this.datum = datum;
   }
 
-
   public long getZeit() {
     return zeit;
   }
@@ -36,7 +34,6 @@ public class Vorfuehrung {
   public void setZeit(long zeit) {
     this.zeit = zeit;
   }
-
 
   public long getAufschlag() {
     return aufschlag;
@@ -46,22 +43,19 @@ public class Vorfuehrung {
     this.aufschlag = aufschlag;
   }
 
-
-  public long getFilmId() {
-    return filmId;
+  public Film getFilm() {
+    return film;
   }
 
-  public void setFilmId(long filmId) {
-    this.filmId = filmId;
+  public void setFilm(Film film) {
+    this.film = film;
   }
 
-
-  public long getSaalId() {
-    return saalId;
+  public Saal getSaal() {
+    return saal;
   }
 
-  public void setSaalId(long saalId) {
-    this.saalId = saalId;
+  public void setSaal(Saal saal) {
+    this.saal = saal;
   }
-
 }

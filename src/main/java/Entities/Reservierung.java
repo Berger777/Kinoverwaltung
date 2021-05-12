@@ -4,9 +4,8 @@ package Entities;
 public class Reservierung {
 
   private long reservierungId;
-  private long nutzerId;
-  private long vorfuehrungId;
-
+  private Nutzer nutzer;
+  private Vorfuehrung vorfuehrung;
 
   public long getReservierungId() {
     return reservierungId;
@@ -16,22 +15,19 @@ public class Reservierung {
     this.reservierungId = reservierungId;
   }
 
-
-  public long getNutzerId() {
-    return nutzerId;
+  public Nutzer getNutzer() {
+    return nutzer;
   }
 
-  public void setNutzerId(long nutzerId) {
-    this.nutzerId = nutzerId;
+  public void setNutzer(Nutzer nutzer) {
+    this.nutzer = nutzer;
   }
 
-
-  public long getVorfuehrungId() {
-    return vorfuehrungId;
+  public Vorfuehrung getVorfuehrung() {
+    return vorfuehrung;
   }
 
-  public void setVorfuehrungId(long vorfuehrungId) {
-    this.vorfuehrungId = vorfuehrungId;
+  public void setVorfuehrung(Vorfuehrung vorfuehrung) {
+    this.vorfuehrung = vorfuehrung;
   }
-
 }

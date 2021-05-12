@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="center" hgap="10" prefHeight="547.0" prefWidth="779.0" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginController">
+<GridPane alignment="center" hgap="10" prefHeight="547.0" prefWidth="779.0" vgap="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.LoginController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -63,7 +63,7 @@
                               <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
-                        <ImageView fitHeight="175.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                        <ImageView fitHeight="175.0" fx:id="image" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>

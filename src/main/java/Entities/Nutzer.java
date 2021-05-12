@@ -3,28 +3,19 @@ package Entities;
 
 public class Nutzer {
 
-  private long nutzerId;
+  private String nutzerId;
   private String passwort;
   private String vorname;
   private String name;
   private String benutzername;
 
-  public String getBenutzername(){
-    return this.benutzername;
-  }
-
-  public void setBenutzername(String benutzername){
-    this.benutzername = benutzername;
-  }
-
-  public long getNutzerId() {
+  public String getNutzerId() {
     return nutzerId;
   }
 
-  public void setNutzerId(long nutzerId) {
+  public void setNutzerId(String nutzerId) {
     this.nutzerId = nutzerId;
   }
-
 
   public String getPasswort() {
     return passwort;
@@ -34,7 +25,6 @@ public class Nutzer {
     this.passwort = passwort;
   }
 
-
   public String getVorname() {
     return vorname;
   }
@@ -42,7 +32,6 @@ public class Nutzer {
   public void setVorname(String vorname) {
     this.vorname = vorname;
   }
-
 
   public String getName() {
     return name;
@@ -52,4 +41,11 @@ public class Nutzer {
     this.name = name;
   }
 
+  public String getBenutzername() {
+    return benutzername;
+  }
+
+  public void setBenutzername(String benutzername) {
+    this.benutzername = benutzername;
+  }
 }
