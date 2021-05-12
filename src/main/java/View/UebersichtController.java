@@ -36,5 +36,6 @@ public class UebersichtController extends Controller implements Initializable {
         for (Reservierung res: reservierungen) {
             reservierungChoice.getItems().add(res.getReservierungId());
         }
+        //TODO Reservierungen anzeigen im TextArea + Storno
     }
 }

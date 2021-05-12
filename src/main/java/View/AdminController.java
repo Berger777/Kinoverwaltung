@@ -7,9 +7,7 @@ import Enums.Scenes;
 import Services.DatabaseService;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -41,16 +39,32 @@ public class AdminController extends Controller implements Initializable {
     public ChoiceBox vorDelChoice;
 
     public void filmDelete(ActionEvent actionEvent) {
-        //TODO
-        sychnronisiereViewMitDB();
+        if (filmDelChoice.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Pflichtfelder leer!", ButtonType.CLOSE);
+            alert.showAndWait();
+        }else {
+            String filmid = databaseService.getFilmeAusDB().stream().filter(f -> filmDelChoice.getValue().toString().equals(f.getTitel())).findFirst().get().getFilmId();
+            databaseService.deleteFilm(filmid);
+            sychnronisiereViewMitDB();
+        }
     }
 
     public void vorfuehrungDelete(ActionEvent actionEvent) {
-        //TODO
-        sychnronisiereViewMitDB();
+        if (vorDelChoice.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Pflichtfelder leer!", ButtonType.CLOSE);
+            alert.showAndWait();
+        }else {
+            databaseService.deleteVorfuehrung(vorDelChoice.getValue().toString());
+            sychnronisiereViewMitDB();
+        }
     }
 
     private void sychnronisiereViewMitDB() {
+        filmDelChoice.getItems().clear();
+        filmChoice.getItems().clear();
+        vorDelChoice.getItems().clear();
+        saalChoice.getItems().clear();
+
         ArrayList<Film> filme = databaseService.getFilmeAusDB();
         for (Film f : filme) {
             filmDelChoice.getItems().add(f.getTitel());
@@ -71,10 +85,15 @@ public class AdminController extends Controller implements Initializable {
     }
 
     public void vorfuehrungHinzufuegen(ActionEvent actionEvent) {
+        if (filmChoice.getValue() == null || saalChoice.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Pflichtfelder leer!", ButtonType.CLOSE);
+            alert.showAndWait();
+        }else{
         String filmid = databaseService.getFilmeAusDB().stream().filter(f -> filmChoice.getValue().toString().equals(f.getTitel())).findFirst().get().getFilmId();
         String saalid = databaseService.getSaaleAusDB().stream().filter(s -> s.getSaalname().equals(saalChoice.getValue().toString())).findFirst().get().getSaalId();
         databaseService.speichereVorfuehrungInDB(filmid, vorAufschlag.getText(), vorzeitField.getText(), vordatumTextfield.getText(), saalid);
         sychnronisiereViewMitDB();
+        }
     }
 
     public void filmHinzu(ActionEvent actionEvent) {

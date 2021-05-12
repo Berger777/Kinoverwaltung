@@ -7,6 +7,14 @@ public class Reservierung {
   private Nutzer nutzer;
   private Vorfuehrung vorfuehrung;
 
+  public String getReservierungId() {
+    return reservierungId;
+  }
+
+  public void setReservierungId(String reservierungId) {
+    this.reservierungId = reservierungId;
+  }
+
   public Nutzer getNutzer() {
     return nutzer;
   }

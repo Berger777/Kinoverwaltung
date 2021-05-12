@@ -127,7 +127,7 @@ public class DatabaseService {
                 vorfuehrung.setAufschlag(rs.getString("Aufschlag"));
 
                 Reservierung reservierung = new Reservierung();
-                reservierung.setReservierungId(rs.getLong("ReservierungID"));
+                reservierung.setReservierungId(rs.getString("ReservierungID"));
                 reservierung.setVorfuehrung(vorfuehrung);
                 reservierung.setNutzer(nutzer);
 
@@ -265,5 +265,35 @@ public class DatabaseService {
             System.out.println(e);
         }
         return saale;
+    }
+
+    public void deleteFilm(String id) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "delete from Film WHERE FilmID = ?;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setString(1,id);
+            prepareStatement.execute();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteVorfuehrung(String id) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "delete from Vorfuehrung WHERE VorfuehrungID = ?;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setString(1,id);
+            prepareStatement.execute();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
     }
 }
