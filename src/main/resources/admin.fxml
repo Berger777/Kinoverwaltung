@@ -67,13 +67,13 @@
                               <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextField fx:id="zeitField" prefHeight="27.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                              <TextField fx:id="vorzeitField" prefHeight="27.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                               <Label prefHeight="17.0" prefWidth="130.0" text="Zeit" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                               <Label layoutX="140.0" layoutY="32.0" prefHeight="17.0" prefWidth="130.0" text="Film-Titel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TextField fx:id="filmTitelTextfield" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Label layoutX="10.0" layoutY="25.0" prefHeight="17.0" prefWidth="130.0" text="Datum" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                               <TextField fx:id="vordatumTextfield" layoutX="10.0" layoutY="67.0" prefHeight="25.0" prefWidth="134.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                              <Button mnemonicParsing="false" onAction="#vorfuehrungHinzufuegen" prefHeight="27.0" prefWidth="165.0" text="Vorführung Hinzufügen" GridPane.columnIndex="3" GridPane.rowIndex="14" />
+                              <Button mnemonicParsing="false" fx:id="vorHinzu" onAction="#vorfuehrungHinzufuegen" prefHeight="27.0" prefWidth="165.0" text="Vorführung Hinzufügen" GridPane.columnIndex="3" GridPane.rowIndex="14" />
                               <TextField fx:id="filmpreisField" prefHeight="27.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                               <Label prefHeight="17.0" prefWidth="130.0" text="Preis" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                               <Label prefHeight="17.0" prefWidth="130.0" text="Regisseur" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -88,19 +88,19 @@
                               <Label text="Beschreibung" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                               <TextField fx:id="filmbeschreibung" prefHeight="73.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                               <Label prefHeight="17.0" prefWidth="130.0" text="Aufschlag (Prozent)" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                              <TextField fx:id="filmAufschlag" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-                              <ChoiceBox prefHeight="27.0" prefWidth="162.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-                              <ChoiceBox prefHeight="74.0" prefWidth="162.0" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+                              <TextField fx:id="vorAufschlag" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                              <ChoiceBox prefHeight="27.0" fx:id="saalChoice" prefWidth="162.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                              <ChoiceBox prefHeight="74.0" fx:id="filmChoice" prefWidth="162.0" GridPane.columnIndex="3" GridPane.rowIndex="12" />
                               <Label prefHeight="17.0" prefWidth="48.0" text="Saal" GridPane.columnIndex="3" GridPane.rowIndex="9" />
                               <Label text="Film" GridPane.columnIndex="3" GridPane.rowIndex="11" />
                               <Label text="Film löschen" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                               <Label text="Vorführung löschen" GridPane.columnIndex="7" GridPane.rowIndex="1" />
                               <Separator prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                               <Separator prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-                              <ChoiceBox prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-                              <ChoiceBox prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="124.0" onAction="#filmDelete" text="Film Löschen" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" onAction="#vorfuehrungDelete" text="Vorführung Löschen" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+                              <ChoiceBox fx:id="filmDelChoice" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                              <ChoiceBox fx:id="vorDelChoice" prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="124.0" fx:id="filmDelButton" onAction="#filmDelete" text="Film Löschen" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" fx:id="vorDelButton" onAction="#vorfuehrungDelete" text="Vorführung Löschen" GridPane.columnIndex="7" GridPane.rowIndex="8" />
                               <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="129.0" onAction="#logout" text="Logout" GridPane.columnIndex="7" GridPane.rowIndex="14" />
                            </children>
                         </GridPane>

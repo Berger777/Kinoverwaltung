@@ -5,11 +5,10 @@ public class Vorfuehrung {
 
   private String vorfuehrungId;
   private String datum;
-  private long zeit;
-  private long aufschlag;
+  private String zeit;
+  private String aufschlag;
   private Film film;
   private Saal saal;
-
 
   public String getVorfuehrungId() {
     return vorfuehrungId;
@@ -27,19 +26,19 @@ public class Vorfuehrung {
     this.datum = datum;
   }
 
-  public long getZeit() {
+  public String getZeit() {
     return zeit;
   }
 
-  public void setZeit(long zeit) {
+  public void setZeit(String zeit) {
     this.zeit = zeit;
   }
 
-  public long getAufschlag() {
+  public String getAufschlag() {
     return aufschlag;
   }
 
-  public void setAufschlag(long aufschlag) {
+  public void setAufschlag(String aufschlag) {
     this.aufschlag = aufschlag;
   }
 

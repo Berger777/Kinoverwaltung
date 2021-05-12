@@ -109,22 +109,22 @@ public class DatabaseService {
 
             do {
                 Film film = new Film();
-                film.setFilmId(rs.getLong("FilmID"));
+                film.setFilmId(rs.getString("FilmID"));
                 film.setBeschreibung(rs.getString("Beschreibung"));
                 film.setTitel(rs.getString("Titel"));
                 film.setLaenge(rs.getString("Laenge"));
-                film.setPreis(rs.getLong("Preis"));
+                film.setPreis(rs.getString("Preis"));
 
                 Saal saal = new Saal();
-                saal.setSaalId(rs.getLong("SaalID"));
+                saal.setSaalId(rs.getString("SaalID"));
 
                 Vorfuehrung vorfuehrung = new Vorfuehrung();
                 vorfuehrung.setVorfuehrungId(rs.getString("VorfuehrungID"));
                 vorfuehrung.setFilm(film);
                 vorfuehrung.setSaal(saal);
                 vorfuehrung.setDatum(rs.getString("Datum"));
-                vorfuehrung.setZeit(rs.getLong("Zeit"));
-                vorfuehrung.setAufschlag(rs.getLong("Aufschlag"));
+                vorfuehrung.setZeit(rs.getString("Zeit"));
+                vorfuehrung.setAufschlag(rs.getString("Aufschlag"));
 
                 Reservierung reservierung = new Reservierung();
                 reservierung.setReservierungId(rs.getLong("ReservierungID"));
@@ -167,7 +167,7 @@ public class DatabaseService {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
-            String sql = "INSERT INTO Film (FilmID, Aufschlag, Zeit, Datum, VorfuehrungID, SaalID) VALUES(?,?,?,?,?,?);";
+            String sql = "INSERT INTO Vorfuehrung (FilmID, Aufschlag, Zeit, Datum, VorfuehrungID, SaalID) VALUES(?,?,?,?,?,?);";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setString(1, FilmID);
             prepareStatement.setString(2, Aufschlag);
@@ -181,5 +181,89 @@ public class DatabaseService {
         catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
         }
+    }
+
+    public ArrayList<Film> getFilmeAusDB(){
+        ArrayList<Film> filme = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "select * from Film;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet rs = prepareStatement.executeQuery();
+            rs.next();
+
+            do {
+                Film film = new Film();
+                film.setFilmId(rs.getString("FilmID"));
+                film.setTitel(rs.getString("Titel"));
+                film.setLaenge(rs.getString("Laenge"));
+                film.setBeschreibung(rs.getString("Beschreibung"));
+                film.setPreis(rs.getString("Preis"));
+                film.setRegisseur(rs.getString("Regisseur"));
+                filme.add(film);
+                System.out.println("Film aus DB geholt: " +film.getFilmId() + " " + film.getTitel()+ " " + film.getPreis() + " " + film.getBeschreibung());
+            }while(rs.next());
+            rs.close();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        return filme;
+    }
+
+    public ArrayList<Vorfuehrung> getVorfuehrungenAusDB(){
+        ArrayList<Vorfuehrung> vorf = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "select * from Vorfuehrung;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet rs = prepareStatement.executeQuery();
+            rs.next();
+
+            do {
+                Vorfuehrung v = new Vorfuehrung();
+                v.setVorfuehrungId(rs.getString("VorfuehrungID"));
+                v.setDatum(rs.getString("Datum"));
+                v.setZeit(rs.getString("Zeit"));
+                v.setAufschlag(rs.getString("Aufschlag"));
+                //TODO Saal und Film fehlen
+                vorf.add(v);
+                System.out.println("Vorfuehrungen aus DB geholt: " + v.getVorfuehrungId()+ " "+ v.getDatum() + " "+ v.getZeit());
+            }while(rs.next());
+            rs.close();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        return vorf;
+    }
+
+    public ArrayList<Saal> getSaaleAusDB() {
+        ArrayList<Saal> saale = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "select * from Saal;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet rs = prepareStatement.executeQuery();
+            rs.next();
+            do {
+                Saal saal = new Saal();
+                saal.setSaalId(rs.getString("SaalID"));
+                saal.setSaalname(rs.getString("Name"));
+                saale.add(saal);
+                System.out.println("Saal aus DB geholt: " + saal.getSaalname()+ " " + saal.getSaalId());
+            }while(rs.next());
+            rs.close();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        return saale;
     }
 }

@@ -3,15 +3,22 @@ package Entities;
 
 public class Saal {
 
-  private long saalId;
+  private String saalId;
+  private String saalname;
 
-
-  public long getSaalId() {
+  public String getSaalId() {
     return saalId;
   }
 
-  public void setSaalId(long saalId) {
+  public void setSaalId(String saalId) {
     this.saalId = saalId;
   }
 
+  public String getSaalname() {
+    return saalname;
+  }
+
+  public void setSaalname(String saalname) {
+    this.saalname = saalname;
+  }
 }

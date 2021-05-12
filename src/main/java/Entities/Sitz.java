@@ -3,65 +3,58 @@ package Entities;
 
 public class Sitz {
 
-  private long sitzId;
-  private long reihe;
-  private long nr;
-  private long kategorieId;
-  private long saalId;
-  private long reservierungId;
+  private String sitzId;
+  private String reihe;
+  private String nr;
+  private String kategorieId;
+  private String saalId;
+  private String reservierungId;
 
-
-  public long getSitzId() {
+  public String getSitzId() {
     return sitzId;
   }
 
-  public void setSitzId(long sitzId) {
+  public void setSitzId(String sitzId) {
     this.sitzId = sitzId;
   }
 
-
-  public long getReihe() {
+  public String getReihe() {
     return reihe;
   }
 
-  public void setReihe(long reihe) {
+  public void setReihe(String reihe) {
     this.reihe = reihe;
   }
 
-
-  public long getNr() {
+  public String getNr() {
     return nr;
   }
 
-  public void setNr(long nr) {
+  public void setNr(String nr) {
     this.nr = nr;
   }
 
-
-  public long getKategorieId() {
+  public String getKategorieId() {
     return kategorieId;
   }
 
-  public void setKategorieId(long kategorieId) {
+  public void setKategorieId(String kategorieId) {
     this.kategorieId = kategorieId;
   }
 
-
-  public long getSaalId() {
+  public String getSaalId() {
     return saalId;
   }
 
-  public void setSaalId(long saalId) {
+  public void setSaalId(String saalId) {
     this.saalId = saalId;
   }
 
-
-  public long getReservierungId() {
+  public String getReservierungId() {
     return reservierungId;
   }
 
-  public void setReservierungId(long reservierungId) {
+  public void setReservierungId(String reservierungId) {
     this.reservierungId = reservierungId;
   }
-
 }

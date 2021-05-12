@@ -3,22 +3,21 @@ package Entities;
 
 public class Film {
 
-  private long filmId;
+  private String filmId;
   private String titel;
   private String laenge;
   private String regisseur;
   private String beschreibung;
-  private long preis;
+  private String preis;
 
 
-  public long getFilmId() {
+  public String getFilmId() {
     return filmId;
   }
 
-  public void setFilmId(long filmId) {
+  public void setFilmId(String filmId) {
     this.filmId = filmId;
   }
-
 
   public String getTitel() {
     return titel;
@@ -28,7 +27,6 @@ public class Film {
     this.titel = titel;
   }
 
-
   public String getLaenge() {
     return laenge;
   }
@@ -36,7 +34,6 @@ public class Film {
   public void setLaenge(String laenge) {
     this.laenge = laenge;
   }
-
 
   public String getRegisseur() {
     return regisseur;
@@ -46,7 +43,6 @@ public class Film {
     this.regisseur = regisseur;
   }
 
-
   public String getBeschreibung() {
     return beschreibung;
   }
@@ -55,13 +51,11 @@ public class Film {
     this.beschreibung = beschreibung;
   }
 
-
-  public long getPreis() {
+  public String getPreis() {
     return preis;
   }
 
-  public void setPreis(long preis) {
+  public void setPreis(String preis) {
     this.preis = preis;
   }
-
 }
