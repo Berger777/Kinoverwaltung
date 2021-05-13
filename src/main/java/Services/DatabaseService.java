@@ -328,7 +328,22 @@ public class DatabaseService {
             conn.close();
         }
         catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
+            System.out.println("Fehler beim Löschen der Vorführung"+e);
+        }
+    }
+
+    public void deleteReservierung(String id) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "delete from Reservierung WHERE ReservierungID = ?;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setString(1,id);
+            prepareStatement.execute();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Fehler beim Löschen der Reservierung"+e);
         }
     }
 }

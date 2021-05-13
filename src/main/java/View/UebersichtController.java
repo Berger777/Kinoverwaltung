@@ -31,8 +31,8 @@ public class UebersichtController extends Controller implements Initializable {
     }
 
     public void stornieren(ActionEvent actionEvent) {
-        //Reservierungen delete
-        //Sitz free
+        databaseService.deleteReservierung(reservierungChoice.getValue().toString());
+        //TODO: Sitz free
         sychnronisiereViewMitDB();
     }
 
@@ -54,18 +54,20 @@ public class UebersichtController extends Controller implements Initializable {
         ArrayList<Sitz> sitze = databaseService.getSitzeAsList();
 
         reservierungen.stream().map(reservierung -> {
-            bob.append("Reservierte-Sitze:\n------------------------------\n");
+            bob.append("Reservierungs-Nr: ").append(reservierung.getReservierungId());
+            bob.append("\n------------------------------\nReservierte-Sitze:\n");
             AtomicInteger i = new AtomicInteger(1);
             sitze.forEach(sitz -> {
                 if (sitz.getReservierungId() != null && sitz.getReservierungId().equals(reservierung.getReservierungId())) {
-                    bob.append("Sitz-Nummer: ").append(i.getAndIncrement()).append("\n").append("Sitz-Reihe: ")
-                            .append(sitz.getReihe()).append("\nSitz-Nummer: ").append(sitz.getNr()).append("\n");
+                    bob.append("Sitz-").append(i.getAndIncrement()).append(" ---> ").append("Sitz-Reihe: ")
+                            .append(sitz.getReihe()).append(" - Sitzplatz-Nummer: ").append(sitz.getNr()).append("\n");
                 }
             });
-            return ("Reservierungs-Nummer: " + reservierung.getReservierungId() + "\nFilm-Titel: " +
+            bob.append("--------------\nVorstellungs-Daten:\n");
+            return ("Film-Titel: " +
                     reservierung.getVorfuehrung().getFilm().getTitel() + "\n" + "Datum: " + reservierung.getVorfuehrung().getDatum()
                     + "\nUhrzeit: " + reservierung.getVorfuehrung().getZeit() + "\n" + "Film-Typ: "
-                    + reservierung.getVorfuehrung().getAufschlag() + "\n" + "\n------------------------------");
+                    + reservierung.getVorfuehrung().getAufschlag() + "\n" + "------------------------------\n");
         }).forEach(bob::append);
 
         reservierungenTextArea.setText(bob.toString());
