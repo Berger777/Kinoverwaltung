@@ -6,7 +6,7 @@ public class Sitz {
   private String sitzId;
   private String reihe;
   private String nr;
-  private String kategorieId;
+  private Kategorie kategorie;
   private String saalId;
   private String reservierungId;
 
@@ -34,12 +34,12 @@ public class Sitz {
     this.nr = nr;
   }
 
-  public String getKategorieId() {
-    return kategorieId;
+  public Kategorie getKategorie() {
+    return kategorie;
   }
 
-  public void setKategorieId(String kategorieId) {
-    this.kategorieId = kategorieId;
+  public void setKategorie(Kategorie kategorie) {
+    this.kategorie = kategorie;
   }
 
   public String getSaalId() {

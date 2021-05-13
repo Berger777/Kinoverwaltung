@@ -21,4 +21,5 @@ public class GuiController extends Controller{
     public void uebersicht(ActionEvent actionEvent) {
         changeSceneTo(actionEvent, Scenes.UEBERSICHT);
     }
+    //TODO Film-Auswahl, Saal-Auswahl und Studentenrabatt + TextArea
 }

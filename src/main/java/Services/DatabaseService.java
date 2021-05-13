@@ -106,7 +106,7 @@ public class DatabaseService {
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setString(1,nutzer.getNutzerId());
             ResultSet rs = prepareStatement.executeQuery();
-
+            rs.next();
             do {
                 Film film = new Film();
                 film.setFilmId(rs.getString("FilmID"));
@@ -132,13 +132,48 @@ public class DatabaseService {
                 reservierung.setNutzer(nutzer);
 
                 res.add(reservierung);
-                System.out.println(reservierung);
+                System.out.println("Reservierung aus DB gehohlt: "+reservierung.getReservierungId()+ " " + reservierung.getNutzer().getBenutzername() + " "+ reservierung.getVorfuehrung().getVorfuehrungId());
             }while(rs.next());
             rs.close();
             conn.close();
         }
         catch (SQLException | ClassNotFoundException e) {
             System.out.println("Fehler bei den Reservierungen: "+e);
+        }
+        return res;
+    }
+
+    public ArrayList<Sitz> getSitzeAsList() {
+        ArrayList<Sitz> res = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "select * from Sitz JOIN Kategorie WHERE Sitz.KategorieID = Kategorie.KategorieID;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet rs = prepareStatement.executeQuery();
+            rs.next();
+            do {
+                Sitz sitz = new Sitz();
+                sitz.setSitzId(rs.getString("SitzID"));
+                sitz.setSaalId(rs.getString("SaalID"));
+                sitz.setReservierungId(rs.getString("ReservierungID"));
+                sitz.setNr(rs.getString("Nr"));
+                sitz.setReihe(rs.getString("Reihe"));
+
+                Kategorie kategorie = new Kategorie();
+                kategorie.setKategorieId(rs.getString("KategorieID"));
+                kategorie.setBezeichnung(rs.getString("Bezeichnung"));
+                kategorie.setAufschlag(rs.getString("Aufschlag"));
+                sitz.setKategorie(kategorie);
+
+                res.add(sitz);
+                System.out.println("Sitz aus DB gehohlt: Reihe: "+sitz.getReihe()+ " Sitz-Nummer" + sitz.getNr() + " "+ sitz.getKategorie().getBezeichnung());
+            }while(rs.next());
+            rs.close();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Fehler bei den Sitz: "+e);
         }
         return res;
     }

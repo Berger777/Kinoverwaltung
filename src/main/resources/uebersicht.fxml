@@ -52,7 +52,7 @@
                               <RowConstraints maxHeight="313.0" minHeight="2.0" prefHeight="313.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextArea disable="true" prefHeight="298.0" prefWidth="262.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextArea fx:id="reservierungenTextArea" disable="true" prefHeight="298.0" prefWidth="262.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.columnIndex="3" GridPane.rowIndex="5">
