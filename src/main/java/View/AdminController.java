@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.stream.Collector;
 
 public class AdminController extends Controller implements Initializable {
     public TextField filmLaengeField;
@@ -70,7 +69,7 @@ public class AdminController extends Controller implements Initializable {
             filmDelChoice.getItems().add(f.getTitel());
             filmChoice.getItems().add(f.getTitel());
         }
-        ArrayList<Vorfuehrung> vor = databaseService.getVorfuehrungenAusDB();
+        ArrayList<Vorfuehrung> vor = databaseService.getVorfuehrungenAusDBsimple();
         for (Vorfuehrung v : vor) {
             vorDelChoice.getItems().add(v.getVorfuehrungId());
         }

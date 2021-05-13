@@ -248,7 +248,7 @@ public class DatabaseService {
         return filme;
     }
 
-    public ArrayList<Vorfuehrung> getVorfuehrungenAusDB(){
+    public ArrayList<Vorfuehrung> getVorfuehrungenAusDBsimple(){
         ArrayList<Vorfuehrung> vorf = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
@@ -264,9 +264,49 @@ public class DatabaseService {
                 v.setDatum(rs.getString("Datum"));
                 v.setZeit(rs.getString("Zeit"));
                 v.setAufschlag(rs.getString("Aufschlag"));
-                //TODO Saal und Film fehlen
+
                 vorf.add(v);
                 System.out.println("Vorfuehrungen aus DB geholt: " + v.getVorfuehrungId()+ " "+ v.getDatum() + " "+ v.getZeit());
+            }while(rs.next());
+            rs.close();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        return vorf;
+    }
+
+    public ArrayList<Vorfuehrung> getVorfuehrungenAusDB(){
+        ArrayList<Vorfuehrung> vorf = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "select * from Vorfuehrung JOIN Saal JOIN Film WHERE Vorfuehrung.FilmID = Film.FilmID AND Vorfuehrung.SaalID = Saal.SaalID;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet rs = prepareStatement.executeQuery();
+            rs.next();
+
+            do {
+                Film film = new Film();
+                film.setFilmId(rs.getString("FilmID"));
+                film.setBeschreibung(rs.getString("Beschreibung"));
+                film.setTitel(rs.getString("Titel"));
+                film.setLaenge(rs.getString("Laenge"));
+                film.setPreis(rs.getString("Preis"));
+
+                Saal saal = new Saal();
+                saal.setSaalId(rs.getString("SaalID"));
+
+                Vorfuehrung vorfuehrung = new Vorfuehrung();
+                vorfuehrung.setVorfuehrungId(rs.getString("VorfuehrungID"));
+                vorfuehrung.setFilm(film);
+                vorfuehrung.setSaal(saal);
+                vorfuehrung.setDatum(rs.getString("Datum"));
+                vorfuehrung.setZeit(rs.getString("Zeit"));
+                vorfuehrung.setAufschlag(rs.getString("Aufschlag"));
+                vorf.add(vorfuehrung);
+                System.out.println("Vorfuehrungen aus DB geholt: " + vorfuehrung.getVorfuehrungId()+ " "+ vorfuehrung.getDatum() + " "+ vorfuehrung.getZeit());
             }while(rs.next());
             rs.close();
             conn.close();
