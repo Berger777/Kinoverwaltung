@@ -1,13 +1,15 @@
 package Entities;
 
 
+import java.util.Objects;
+
 public class Sitz {
 
   private String sitzId;
   private String reihe;
   private String nr;
   private Kategorie kategorie;
-  private String saalId;
+  private Saal saal;
   private String reservierungId;
 
   public String getSitzId() {
@@ -42,12 +44,12 @@ public class Sitz {
     this.kategorie = kategorie;
   }
 
-  public String getSaalId() {
-    return saalId;
+  public Saal getSaal() {
+    return saal;
   }
 
-  public void setSaalId(String saalId) {
-    this.saalId = saalId;
+  public void setSaal(Saal saal) {
+    this.saal = saal;
   }
 
   public String getReservierungId() {
@@ -57,4 +59,13 @@ public class Sitz {
   public void setReservierungId(String reservierungId) {
     this.reservierungId = reservierungId;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Sitz sitz = (Sitz) o;
+    return reihe.equals(sitz.reihe) && nr.equals(sitz.nr) && saal.getSaalId().equals(sitz.saal.getSaalId()) ;
+  }
+
 }

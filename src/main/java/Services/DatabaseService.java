@@ -143,19 +143,70 @@ public class DatabaseService {
         return res;
     }
 
+    public ArrayList<Reservierung> getReservierungenAsList() {
+        ArrayList<Reservierung> res = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "select * from Reservierung JOIN Vorfuehrung JOIN Saal JOIN Film JOIN Nutzer WHERE Reservierung.VorfuehrungID = Vorfuehrung.VorfuehrungID AND Vorfuehrung.FilmID = Film.FilmID AND Vorfuehrung.SaalID = Saal.SaalID AND Reservierung.NutzerID = Nutzer.NutzerID;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet rs = prepareStatement.executeQuery();
+            rs.next();
+            do {
+                Film film = new Film();
+                film.setFilmId(rs.getString("FilmID"));
+                film.setBeschreibung(rs.getString("Beschreibung"));
+                film.setTitel(rs.getString("Titel"));
+                film.setLaenge(rs.getString("Laenge"));
+                film.setPreis(rs.getString("Preis"));
+
+                Saal saal = new Saal();
+                saal.setSaalId(rs.getString("SaalID"));
+                saal.setSaalname(rs.getString("Name"));
+
+                Vorfuehrung vorfuehrung = new Vorfuehrung();
+                vorfuehrung.setVorfuehrungId(rs.getString("VorfuehrungID"));
+                vorfuehrung.setFilm(film);
+                vorfuehrung.setSaal(saal);
+                vorfuehrung.setDatum(rs.getString("Datum"));
+                vorfuehrung.setZeit(rs.getString("Zeit"));
+                vorfuehrung.setAufschlag(rs.getString("Aufschlag"));
+
+                Reservierung reservierung = new Reservierung();
+                reservierung.setReservierungId(rs.getString("ReservierungID"));
+                reservierung.setVorfuehrung(vorfuehrung);
+
+                Nutzer nutzer = new Nutzer();
+                nutzer.setNutzerId(rs.getString("NutzerID"));
+                nutzer.setVorname(rs.getString("Vorname"));
+                nutzer.setName(rs.getString("Name"));
+                nutzer.setPasswort(rs.getString("Passwort"));
+                reservierung.setNutzer(nutzer);
+
+                res.add(reservierung);
+                System.out.println("Reservierung aus DB gehohlt: "+reservierung.getReservierungId()+ " " + reservierung.getNutzer().getBenutzername() + " "+ reservierung.getVorfuehrung().getVorfuehrungId());
+            }while(rs.next());
+            rs.close();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Fehler bei den Reservierungen: "+e);
+        }
+        return res;
+    }
+
     public ArrayList<Sitz> getSitzeAsList() {
         ArrayList<Sitz> res = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
-            String sql = "select * from Sitz JOIN Kategorie WHERE Sitz.KategorieID = Kategorie.KategorieID;";
+            String sql = "select * from Sitz JOIN Kategorie JOIN Saal WHERE Saal.SaalID = Sitz.SaalID AND Sitz.KategorieID = Kategorie.KategorieID;";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             ResultSet rs = prepareStatement.executeQuery();
             rs.next();
             do {
                 Sitz sitz = new Sitz();
                 sitz.setSitzId(rs.getString("SitzID"));
-                sitz.setSaalId(rs.getString("SaalID"));
                 sitz.setReservierungId(rs.getString("ReservierungID"));
                 sitz.setNr(rs.getString("Nr"));
                 sitz.setReihe(rs.getString("Reihe"));
@@ -165,6 +216,11 @@ public class DatabaseService {
                 kategorie.setBezeichnung(rs.getString("Bezeichnung"));
                 kategorie.setAufschlag(rs.getString("Aufschlag"));
                 sitz.setKategorie(kategorie);
+
+                Saal saal = new Saal();
+                saal.setSaalId(rs.getString("SaalID"));
+                saal.setSaalname(rs.getString("Name"));
+                sitz.setSaal(saal);
 
                 res.add(sitz);
                 System.out.println("Sitz aus DB gehohlt: Reihe: "+sitz.getReihe()+ " Sitz-Nummer" + sitz.getNr() + " "+ sitz.getKategorie().getBezeichnung());
@@ -297,6 +353,7 @@ public class DatabaseService {
 
                 Saal saal = new Saal();
                 saal.setSaalId(rs.getString("SaalID"));
+                saal.setSaalname(rs.getString("Name"));
 
                 Vorfuehrung vorfuehrung = new Vorfuehrung();
                 vorfuehrung.setVorfuehrungId(rs.getString("VorfuehrungID"));
@@ -384,6 +441,59 @@ public class DatabaseService {
         }
         catch (SQLException | ClassNotFoundException e) {
             System.out.println("Fehler beim Löschen der Reservierung"+e);
+        }
+    }
+
+    public String speichereReservierung(Nutzer currentUser, String vorstellungID) {
+        String reservierungID = UUID.randomUUID().toString();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "INSERT INTO Reservierung (ReservierungID, NutzerID,VorfuehrungID) VALUES(?,?,?);";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setString(1, reservierungID);
+            prepareStatement.setString(2, currentUser.getNutzerId());
+            prepareStatement.setString(3, vorstellungID);
+            prepareStatement.execute();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        return reservierungID;
+    }
+
+    public void speichereSitz(String reservierungID, Sitz sitz) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "INSERT INTO Sitz (SitzID, ReservierungID, Reihe, Nr, SaalID, KategorieID) VALUES(?,?,?,?,?,?);";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setString(1, sitz.getSitzId());
+            prepareStatement.setString(2, reservierungID);
+            prepareStatement.setString(3, sitz.getReihe());
+            prepareStatement.setString(4, sitz.getNr());
+            prepareStatement.setString(5, sitz.getSaal().getSaalId());
+            prepareStatement.setString(6, sitz.getKategorie().getKategorieId());
+            prepareStatement.execute();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+    public void deleteSitz(Sitz sitz) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "DELETE FROM Sitz WHERE SitzID = ?;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            prepareStatement.setString(1, sitz.getSitzId());
+            prepareStatement.execute();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
         }
     }
 }

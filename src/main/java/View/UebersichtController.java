@@ -16,11 +16,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class UebersichtController extends Controller implements Initializable {
     public TextArea reservierungenTextArea;
-    private DatabaseService databaseService = new DatabaseService();
+    private final DatabaseService databaseService = new DatabaseService();
     public Button buchungsseiteButton;
     public Button logoutButton;
     public Button stornierenButton;
-    public ChoiceBox reservierungChoice;
+    public ChoiceBox<String> reservierungChoice;
 
     public void buchungseite(ActionEvent event) {
         changeSceneTo(event, Scenes.GUI);
@@ -58,7 +58,7 @@ public class UebersichtController extends Controller implements Initializable {
             bob.append("\n------------------------------\nReservierte-Sitze:\n");
             AtomicInteger i = new AtomicInteger(1);
             sitze.forEach(sitz -> {
-                if (sitz.getReservierungId() != null && sitz.getReservierungId().equals(reservierung.getReservierungId())) {
+                if (sitz.getReservierungId() != null && sitz.getReservierungId().equals(reservierung.getReservierungId()) && sitz.getSaal().getSaalId().equals(reservierung.getVorfuehrung().getSaal().getSaalId())) {
                     bob.append("Sitz-").append(i.getAndIncrement()).append(" ---> ").append("Sitz-Reihe: ")
                             .append(sitz.getReihe()).append(" - Sitzplatz-Nummer: ").append(sitz.getNr()).append("\n");
                 }

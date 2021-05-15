@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="777.0" prefWidth="1000.0" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.GuiController">
+<GridPane alignment="center" hgap="10" prefHeight="777.0" prefWidth="1000.0" vgap="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.GuiController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -59,7 +59,7 @@
                           </rowConstraints>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vorstellung-Auswahl" wrappingWidth="143.63232421875" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <ChoiceBox id="vorstellungChoice" onKeyPressed="#choice_click" fx:id="vorstellungChoice" prefHeight="27.0" prefWidth="381.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <ChoiceBox fx:id="vorstellungChoice" onAction="#choice_click" prefHeight="27.0" prefWidth="381.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                               </ChoiceBox>
                            </children>
                         </GridPane>
@@ -81,22 +81,22 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                              <CheckBox mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="r4s1" onAction="#sitzplatzVormerken" alignment="CENTER" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="r4s2" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="r4s3" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="r4s4" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="r3s1" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="r3s2" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="r3s3" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="r3s4" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="r2s1" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="r2s2" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="r2s3" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="r2s4" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="r1s1" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="r1s2" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="r1s3" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="r1s4" onAction="#sitzplatzVormerken" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reihe 2" GridPane.rowIndex="3" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reihe 1" GridPane.rowIndex="4" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reihe 3" GridPane.rowIndex="2" />
@@ -217,7 +217,7 @@
                           </rowConstraints>
                            <children>
                               <Label prefHeight="17.0" prefWidth="145.0" text="Schüler/Student?" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <CheckBox fx:id="studentenRabattCheckbox" mnemonicParsing="false" prefHeight="18.0" prefWidth="168.0" text="10 % - Rabatt" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="studentenRabattCheckbox" onAction="#rabatt" mnemonicParsing="false" prefHeight="18.0" prefWidth="168.0" text="10 % - Rabatt" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>
