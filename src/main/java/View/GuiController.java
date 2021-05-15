@@ -1,9 +1,6 @@
 package View;
 
-import Entities.Reservierung;
-import Entities.Saal;
-import Entities.Sitz;
-import Entities.Vorfuehrung;
+import Entities.*;
 import Enums.Scenes;
 import Services.DatabaseService;
 import Util.Buchung;
@@ -92,8 +89,7 @@ public class GuiController extends Controller implements Initializable {
     public void buchen(javafx.event.ActionEvent actionEvent) {
         String reservierungID = databaseService.speichereReservierung(getCurrentUser(),vorstellungID);
         for (Sitz sitz: buchung.getSitzBuchungen()) {
-            databaseService.deleteSitz(sitz);
-            databaseService.speichereSitz(reservierungID,sitz);
+            databaseService.speichereSitzReservierung(reservierungID,sitz);
         }
         checkboxenReset();
         buchungDetails.setText("");
@@ -133,12 +129,13 @@ public class GuiController extends Controller implements Initializable {
 
     public void updateSitzeBelegung(String vorstellungID) {
         ArrayList<Reservierung> reservierungArrayList = databaseService.getReservierungenAsList();
+        ArrayList<SitzReservierung> sitzeReservierungArrays = databaseService.getSitzReservierungenAsListSimple();
         databaseService.getSitzeAsList().stream().filter(sitz -> {
             for (Reservierung r : reservierungArrayList) {
-                if (sitz.getReservierungId() == null) {
-                    return false;
-                } else {
-                    return sitz.getReservierungId().equals(r.getReservierungId()) && r.getVorfuehrung().getVorfuehrungId().equals(vorstellungID);
+                for (SitzReservierung sr: sitzeReservierungArrays) {
+                    if (sr.getSitzID().equals(sitz.getSitzId()) && sr.getReservierungID().equals(r.getReservierungId())){
+                        return r.getVorfuehrung().getVorfuehrungId().equals(vorstellungID);
+                    }
                 }
             }
             return false;

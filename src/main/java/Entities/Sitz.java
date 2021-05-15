@@ -10,7 +10,6 @@ public class Sitz {
   private String nr;
   private Kategorie kategorie;
   private Saal saal;
-  private String reservierungId;
 
   public String getSitzId() {
     return sitzId;
@@ -52,13 +51,6 @@ public class Sitz {
     this.saal = saal;
   }
 
-  public String getReservierungId() {
-    return reservierungId;
-  }
-
-  public void setReservierungId(String reservierungId) {
-    this.reservierungId = reservierungId;
-  }
 
   @Override
   public boolean equals(Object o) {

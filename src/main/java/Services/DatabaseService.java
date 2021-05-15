@@ -195,6 +195,31 @@ public class DatabaseService {
         return res;
     }
 
+    public ArrayList<SitzReservierung> getSitzReservierungenAsListSimple() {
+        ArrayList<SitzReservierung> res = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
+            String sql = "select * from SitzReservierung;";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet rs = prepareStatement.executeQuery();
+            rs.next();
+            do {
+                SitzReservierung sitzReservierung = new SitzReservierung();
+                sitzReservierung.setReservierungID(rs.getString("ReservierungID"));
+                sitzReservierung.setSitzID(rs.getString("SitzID"));
+                res.add(sitzReservierung);
+                System.out.println("Reservierung aus DB gehohlt: "+sitzReservierung.getReservierungID()+ " " + sitzReservierung.getSitzID());
+            }while(rs.next());
+            rs.close();
+            conn.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Fehler bei den SitzReservierungen: "+e);
+        }
+        return res;
+    }
+
     public ArrayList<Sitz> getSitzeAsList() {
         ArrayList<Sitz> res = new ArrayList<>();
         try {
@@ -207,7 +232,6 @@ public class DatabaseService {
             do {
                 Sitz sitz = new Sitz();
                 sitz.setSitzId(rs.getString("SitzID"));
-                sitz.setReservierungId(rs.getString("ReservierungID"));
                 sitz.setNr(rs.getString("Nr"));
                 sitz.setReihe(rs.getString("Reihe"));
 
@@ -463,18 +487,14 @@ public class DatabaseService {
         return reservierungID;
     }
 
-    public void speichereSitz(String reservierungID, Sitz sitz) {
+    public void speichereSitzReservierung(String reservierungID, Sitz sitz) {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
-            String sql = "INSERT INTO Sitz (SitzID, ReservierungID, Reihe, Nr, SaalID, KategorieID) VALUES(?,?,?,?,?,?);";
+            String sql = "INSERT INTO SitzReservierung (SitzID, ReservierungID) VALUES(?,?);";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setString(1, sitz.getSitzId());
             prepareStatement.setString(2, reservierungID);
-            prepareStatement.setString(3, sitz.getReihe());
-            prepareStatement.setString(4, sitz.getNr());
-            prepareStatement.setString(5, sitz.getSaal().getSaalId());
-            prepareStatement.setString(6, sitz.getKategorie().getKategorieId());
             prepareStatement.execute();
             conn.close();
         }
@@ -482,13 +502,15 @@ public class DatabaseService {
             System.out.println(e);
         }
     }
-    public void deleteSitz(Sitz sitz) {
+
+    public void deleteSitzReservierung(Sitz sitz, String reservierungID) {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:kino.sqlite");
-            String sql = "DELETE FROM Sitz WHERE SitzID = ?;";
+            String sql = "DELETE FROM SitzReservierung WHERE SitzID = ? AND ReservierungID = ?;";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setString(1, sitz.getSitzId());
+            prepareStatement.setString(2, reservierungID);
             prepareStatement.execute();
             conn.close();
         }
