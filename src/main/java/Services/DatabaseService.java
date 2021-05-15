@@ -54,7 +54,7 @@ public class DatabaseService {
                 nutzer.setName(rs.getString("Name"));
                 nutzer.setBenutzername(rs.getString("Benutzername"));
                 nutzer.setPasswort(rs.getString("Passwort"));
-                System.out.println("Nutzer aus DB geholt: " +nutzer.getNutzerId() + " " + nutzer.getBenutzername()+ " " + nutzer.getVorname() + " " + nutzer.getName());
+                //System.out.println("Nutzer aus DB geholt: " +nutzer.getNutzerId() + " " + nutzer.getBenutzername()+ " " + nutzer.getVorname() + " " + nutzer.getName());
             }while(rs.next());
             rs.close();
             conn.close();
@@ -86,7 +86,7 @@ public class DatabaseService {
                 nutzer.setVorname(rs.getString("Vorname"));
                 nutzer.setName(rs.getString("Name"));
                 nutzer.setPasswort(rs.getString("Passwort"));
-                System.out.println("Nutzer aus DB geholt: " +nutzer.getNutzerId() + " " + nutzer.getBenutzername()+ " " + nutzer.getVorname() + " " + nutzer.getName());
+                //System.out.println("Nutzer aus DB geholt: " +nutzer.getNutzerId() + " " + nutzer.getBenutzername()+ " " + nutzer.getVorname() + " " + nutzer.getName());
             }while(rs.next());
             rs.close();
             conn.close();
@@ -106,7 +106,8 @@ public class DatabaseService {
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             prepareStatement.setString(1,nutzer.getNutzerId());
             ResultSet rs = prepareStatement.executeQuery();
-            rs.next();
+            if(rs.next()){
+
             do {
                 Film film = new Film();
                 film.setFilmId(rs.getString("FilmID"));
@@ -117,6 +118,7 @@ public class DatabaseService {
 
                 Saal saal = new Saal();
                 saal.setSaalId(rs.getString("SaalID"));
+                saal.setSaalname(rs.getString("Name"));
 
                 Vorfuehrung vorfuehrung = new Vorfuehrung();
                 vorfuehrung.setVorfuehrungId(rs.getString("VorfuehrungID"));
@@ -132,8 +134,9 @@ public class DatabaseService {
                 reservierung.setNutzer(nutzer);
 
                 res.add(reservierung);
-                System.out.println("Reservierung aus DB gehohlt: "+reservierung.getReservierungId()+ " " + reservierung.getNutzer().getBenutzername() + " "+ reservierung.getVorfuehrung().getVorfuehrungId());
+                //System.out.println("Reservierung aus DB gehohlt: "+reservierung.getReservierungId()+ " " + reservierung.getNutzer().getBenutzername() + " "+ reservierung.getVorfuehrung().getVorfuehrungId());
             }while(rs.next());
+            }
             rs.close();
             conn.close();
         }
@@ -151,7 +154,8 @@ public class DatabaseService {
             String sql = "select * from Reservierung JOIN Vorfuehrung JOIN Saal JOIN Film JOIN Nutzer WHERE Reservierung.VorfuehrungID = Vorfuehrung.VorfuehrungID AND Vorfuehrung.FilmID = Film.FilmID AND Vorfuehrung.SaalID = Saal.SaalID AND Reservierung.NutzerID = Nutzer.NutzerID;";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             ResultSet rs = prepareStatement.executeQuery();
-            rs.next();
+            if(rs.next()){
+
             do {
                 Film film = new Film();
                 film.setFilmId(rs.getString("FilmID"));
@@ -184,8 +188,9 @@ public class DatabaseService {
                 reservierung.setNutzer(nutzer);
 
                 res.add(reservierung);
-                System.out.println("Reservierung aus DB gehohlt: "+reservierung.getReservierungId()+ " " + reservierung.getNutzer().getBenutzername() + " "+ reservierung.getVorfuehrung().getVorfuehrungId());
+                //System.out.println("Reservierung aus DB gehohlt: "+reservierung.getReservierungId()+ " " + reservierung.getNutzer().getBenutzername() + " "+ reservierung.getVorfuehrung().getVorfuehrungId());
             }while(rs.next());
+            }
             rs.close();
             conn.close();
         }
@@ -203,14 +208,15 @@ public class DatabaseService {
             String sql = "select * from SitzReservierung;";
             PreparedStatement prepareStatement = conn.prepareStatement(sql);
             ResultSet rs = prepareStatement.executeQuery();
-            rs.next();
+            if(rs.next()){
             do {
                 SitzReservierung sitzReservierung = new SitzReservierung();
                 sitzReservierung.setReservierungID(rs.getString("ReservierungID"));
                 sitzReservierung.setSitzID(rs.getString("SitzID"));
                 res.add(sitzReservierung);
-                System.out.println("Reservierung aus DB gehohlt: "+sitzReservierung.getReservierungID()+ " " + sitzReservierung.getSitzID());
+                //System.out.println("Reservierung aus DB gehohlt: "+sitzReservierung.getReservierungID()+ " " + sitzReservierung.getSitzID());
             }while(rs.next());
+            }
             rs.close();
             conn.close();
         }
@@ -247,7 +253,7 @@ public class DatabaseService {
                 sitz.setSaal(saal);
 
                 res.add(sitz);
-                System.out.println("Sitz aus DB gehohlt: Reihe: "+sitz.getReihe()+ " Sitz-Nummer" + sitz.getNr() + " "+ sitz.getKategorie().getBezeichnung());
+                //System.out.println("Sitz aus DB gehohlt: Reihe: "+sitz.getReihe()+ " Sitz-Nummer" + sitz.getNr() + " "+ sitz.getKategorie().getBezeichnung());
             }while(rs.next());
             rs.close();
             conn.close();
@@ -317,7 +323,7 @@ public class DatabaseService {
                 film.setPreis(rs.getString("Preis"));
                 film.setRegisseur(rs.getString("Regisseur"));
                 filme.add(film);
-                System.out.println("Film aus DB geholt: " +film.getFilmId() + " " + film.getTitel()+ " " + film.getPreis() + " " + film.getBeschreibung());
+                //System.out.println("Film aus DB geholt: " +film.getFilmId() + " " + film.getTitel()+ " " + film.getPreis() + " " + film.getBeschreibung());
             }while(rs.next());
             rs.close();
             conn.close();
@@ -346,7 +352,7 @@ public class DatabaseService {
                 v.setAufschlag(rs.getString("Aufschlag"));
 
                 vorf.add(v);
-                System.out.println("Vorfuehrungen aus DB geholt: " + v.getVorfuehrungId()+ " "+ v.getDatum() + " "+ v.getZeit());
+                //System.out.println("Vorfuehrungen aus DB geholt: " + v.getVorfuehrungId()+ " "+ v.getDatum() + " "+ v.getZeit());
             }while(rs.next());
             rs.close();
             conn.close();
@@ -387,7 +393,7 @@ public class DatabaseService {
                 vorfuehrung.setZeit(rs.getString("Zeit"));
                 vorfuehrung.setAufschlag(rs.getString("Aufschlag"));
                 vorf.add(vorfuehrung);
-                System.out.println("Vorfuehrungen aus DB geholt: " + vorfuehrung.getVorfuehrungId()+ " "+ vorfuehrung.getDatum() + " "+ vorfuehrung.getZeit());
+                //System.out.println("Vorfuehrungen aus DB geholt: " + vorfuehrung.getVorfuehrungId()+ " "+ vorfuehrung.getDatum() + " "+ vorfuehrung.getZeit());
             }while(rs.next());
             rs.close();
             conn.close();
@@ -412,7 +418,7 @@ public class DatabaseService {
                 saal.setSaalId(rs.getString("SaalID"));
                 saal.setSaalname(rs.getString("Name"));
                 saale.add(saal);
-                System.out.println("Saal aus DB geholt: " + saal.getSaalname()+ " " + saal.getSaalId());
+                //System.out.println("Saal aus DB geholt: " + saal.getSaalname()+ " " + saal.getSaalId());
             }while(rs.next());
             rs.close();
             conn.close();

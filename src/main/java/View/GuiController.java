@@ -131,8 +131,8 @@ public class GuiController extends Controller implements Initializable {
         ArrayList<Reservierung> reservierungArrayList = databaseService.getReservierungenAsList();
         ArrayList<SitzReservierung> sitzeReservierungArrays = databaseService.getSitzReservierungenAsListSimple();
         databaseService.getSitzeAsList().stream().filter(sitz -> {
-            for (Reservierung r : reservierungArrayList) {
                 for (SitzReservierung sr: sitzeReservierungArrays) {
+            for (Reservierung r : reservierungArrayList) {
                     if (sr.getSitzID().equals(sitz.getSitzId()) && sr.getReservierungID().equals(r.getReservierungId())){
                         return r.getVorfuehrung().getVorfuehrungId().equals(vorstellungID);
                     }
@@ -166,6 +166,6 @@ public class GuiController extends Controller implements Initializable {
 
     public void rabatt(ActionEvent actionEvent) {
         buchung.setRabatt(((CheckBox) actionEvent.getSource()).isSelected());
-        buchungDetails.setText(buchung.toString());
+        if (buchung.getSitzBuchungen().size()!=0)buchungDetails.setText(buchung.toString());
     }
 }

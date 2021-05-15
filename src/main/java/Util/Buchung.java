@@ -14,7 +14,7 @@ public class Buchung {
     DatabaseService databaseService = new DatabaseService();
     Vorfuehrung vorfuehrung = new Vorfuehrung();
     ArrayList<Sitz> sitzBuchungen = new ArrayList<>();
-    double preis;
+    double preis = 0;
 
     public boolean isRabatt() {
         return rabatt;

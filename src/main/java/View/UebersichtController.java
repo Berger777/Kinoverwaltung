@@ -31,7 +31,7 @@ public class UebersichtController extends Controller implements Initializable {
     }
 
     public void stornieren(ActionEvent actionEvent) {
-        databaseService.deleteReservierung(reservierungChoice.getValue().toString());
+        databaseService.deleteReservierung(reservierungChoice.getValue());
         //TODO: Sitz free
         sychnronisiereViewMitDB();
     }
@@ -44,7 +44,7 @@ public class UebersichtController extends Controller implements Initializable {
     }
 
     private void sychnronisiereViewMitDB() {
-        StringBuilder bob = new StringBuilder();
+        StringBuilder bobTheStringBuilder = new StringBuilder();
         reservierungChoice.getItems().clear();
         ArrayList<Reservierung> reservierungen = databaseService.getReservierungenAsList(getCurrentUser());
         for (Reservierung res : reservierungen) {
@@ -54,25 +54,37 @@ public class UebersichtController extends Controller implements Initializable {
         ArrayList<Sitz> sitze = databaseService.getSitzeAsList();
 
         reservierungen.stream().map(reservierung -> {
-            bob.append("Reservierungs-Nr: ").append(reservierung.getReservierungId());
-            bob.append("\n------------------------------\nReservierte-Sitze:\n");
+            bobTheStringBuilder.append("Reservierungs-Nr: ").append(reservierung.getReservierungId());
+            bobTheStringBuilder.append("\n------------------------------\nKino-Tickets:\n");
             AtomicInteger i = new AtomicInteger(1);
             sitze.forEach(sitz -> {
                 for (SitzReservierung sr: databaseService.getSitzReservierungenAsListSimple()
                      ) {
                     if (sr.getReservierungID().equals(reservierung.getReservierungId()) && sitz.getSitzId().equals(sr.getSitzID())){
-                        bob.append("Sitz-").append(i.getAndIncrement()).append(" ---> ").append("Sitz-Reihe: ")
-                                .append(sitz.getReihe()).append(" - Sitzplatz-Nummer: ").append(sitz.getNr()).append("\n");
+                        bobTheStringBuilder.append("Ticket #")
+                                .append(i.getAndIncrement())
+                                .append("     ").append("Sitz-Reihe: ")
+                                .append(sitz.getReihe())
+                                .append(" - Platz-Nr.: ")
+                                .append(sitz.getNr()).append("\n")
+                                .append("\tSitztyp: ")
+                                .append(sitz.getKategorie().getBezeichnung())
+                                .append(" - Aufschlag: ")
+                                .append(sitz.getKategorie().getAufschlag())
+                                .append("€\n")
+                                .append("\tTicket-Preis: ")
+                                .append(Double.parseDouble(reservierung.getVorfuehrung().getFilm().getPreis())+Double.parseDouble(sitz.getKategorie().getAufschlag()))
+                                .append("€\n");
                     }
                 }
             });
-            bob.append("--------------\nVorstellungs-Daten:\n");
+            bobTheStringBuilder.append("--------------\nVorstellungs-Daten:\n");
             return ("Film-Titel: " +
-                    reservierung.getVorfuehrung().getFilm().getTitel() + "\n" + "Datum: " + reservierung.getVorfuehrung().getDatum()
+                    reservierung.getVorfuehrung().getFilm().getTitel() + "\nTicket-Preis: "+ reservierung.getVorfuehrung().getFilm().getPreis() + "€\n" + "Datum: " + reservierung.getVorfuehrung().getDatum()
                     + "\nUhrzeit: " + reservierung.getVorfuehrung().getZeit() + "\n" + "Film-Typ: "
-                    + reservierung.getVorfuehrung().getAufschlag() + "\n" + "------------------------------\n");
-        }).forEach(bob::append);
+                    + reservierung.getVorfuehrung().getAufschlag() + "\n" + "Saal: "+ reservierung.getVorfuehrung().getSaal().getSaalname()+"\n" + "Film-Beschreibung: "+ reservierung.getVorfuehrung().getFilm().getBeschreibung()+"\n"+ "------------------------------\n");
+        }).forEach(bobTheStringBuilder::append);
 
-        reservierungenTextArea.setText(bob.toString());
+        reservierungenTextArea.setText(bobTheStringBuilder.toString());
     }
 }
